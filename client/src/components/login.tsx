@@ -1,22 +1,53 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 
 
 
 
 export default function Login() {
 
+    const [pw, setPw] = useState(undefined)
+    const [name, setName] = useState(undefined)
 
-
+    const updatePw = (event: any) => {
+        event? setPw(event.target.value) : setPw(undefined)     
+    }
+    const updateName = (event: any) => {
+        event? setName(event.target.value) : setName(undefined)     
+    }
+    const login = async () => {
+        const user = {
+            name: name,
+            pw: pw
+        }
+        
+        console.log(user)
+        const response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            body: JSON.stringify(user)
+        })
+        console.log(response)
+        
+    }
 
     return (
         <div style={loginStyle}>
             <div>
                 <p style={textStyle}>namn:</p>
-                <input style={inputStyle}/>
+                <input 
+                    onChange={(event) => updateName(event)} 
+                    placeholder={"Skriv ditt namn"} 
+                    style={inputStyle}
+                />
                 <p style={textStyle}>lösenord:</p>
-                <input style={inputStyle}/>
+                <input 
+                    onChange={(event) => updatePw(event)} 
+                    placeholder={"Skriv ditt lösenord"} 
+                    style={inputStyle}
+                    type={'password'}
+                    />
             </div>
-            <button>Logga in</button>
+            <button onClick={() => login()}>Logga in</button>
         </div>
     );
 }

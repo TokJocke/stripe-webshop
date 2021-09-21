@@ -38,6 +38,6 @@ export default function ProductList() {
 }
 
 const productListStyle = {
-
+    display: "flex",
 }
 
