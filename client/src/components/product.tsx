@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 interface Props {
     name: string,
@@ -37,7 +37,13 @@ export default function Product(props: Props) {
     );
 }
 
-const productStyle = {
-
+const productStyle: CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "white",
+    height: "40%",
+    margin: "10px",
+    padding: "10px",
+    borderRadius: "10px"    
 }
 
