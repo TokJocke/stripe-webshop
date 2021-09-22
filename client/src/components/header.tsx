@@ -18,7 +18,7 @@ export default function Header() {
 }
 
 const headerStyle: CSSProperties = {
-    height: "15%",
+    height: "20%",
     width: "100%",
     backgroundColor: "blue",    
     display: "flex",

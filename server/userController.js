@@ -28,8 +28,9 @@ export const login = async (req, res) => {
     const user = users.find(user => user.name === req.body.name)
     
     if(!user || !await bcryptjs.compare(req.body.pw, user.pw)) {
-        return res.status(401).send({message: 'No blah Found'}) /* Cant get message on clientside */
+        return res.status(401).send("Wrong password") /* Cant get message on clientside */
     }
+    console.log(req.session.id, " before if ")
     if(req.session.id) {
         return res.send("Du är redan inloggad")
     }
@@ -46,4 +47,22 @@ export const logout = (req, res) => {
     }
     req.session = null
     res.send("Du är utloggad")
+}
+
+export const addToCart = async (req, res) => {
+    let rawUsers = fs.readFileSync("users.json")
+    let users = JSON.parse(rawUsers)
+    const user = users.find(user => user.name === req.session.username)   
+    if(!user) {
+        return res.status(404).send("Logga in för att lägga till i kundvagn")
+    }
+    user.cart.push(req.body.id)
+    fs.writeFileSync('users.json', JSON.stringify(users))
+    res.status(200).send("Produkt tillagd i kundvagn")
+}
+
+export const getProducts = async (req, res) => {
+    let rawProd = fs.readFileSync("products.json")
+    let productList = JSON.parse(rawProd)
+    res.json(productList)
 }

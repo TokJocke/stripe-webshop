@@ -4,18 +4,26 @@ interface Props {
     name: string,
     price: string,
     info: string
+    id: string
 }
 
 
 export default function Product(props: Props) {
 
-    const products = [
-        {
-            name: "bordsfläkt",
-            price: "200kr",
-            info: "Blåser bra som fan, håll i hatten!"
+
+    const addToCart = async () => {
+        console.log(props.id)
+        const product = {
+            id: props.id
         }
-    ]
+        const response = await fetch("http://localhost:3000/addToCart", {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            credentials: 'include',
+            body: JSON.stringify(product)
+        })
+        console.log(response)
+    }
 
 
     return (
@@ -29,7 +37,7 @@ export default function Product(props: Props) {
             <p>
                 {props.info}
             </p>
-            <button>
+            <button onClick={() => addToCart()}>
                 Lägg i kundvagn
             </button>
         </div>
@@ -41,7 +49,6 @@ const productStyle: CSSProperties = {
     display: "flex",
     flexDirection: "column",
     backgroundColor: "white",
-    height: "40%",
     margin: "10px",
     padding: "10px",
     borderRadius: "10px"    
