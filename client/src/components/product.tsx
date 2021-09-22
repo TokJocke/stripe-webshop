@@ -14,7 +14,7 @@ export default function Product(props: Props) {
     const addToCart = async () => {
         console.log(props.id)
         const product = {
-            id: props.id
+            id: props.id,
         }
         const response = await fetch("http://localhost:3000/addToCart", {
             method: "POST",

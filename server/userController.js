@@ -6,7 +6,7 @@ import bcryptjs from "bcryptjs"
 
 
 export const createUser = async (req, res) => {
- 
+        
     let rawUsers = fs.readFileSync("users.json")
     let users = JSON.parse(rawUsers)
 
@@ -56,7 +56,19 @@ export const addToCart = async (req, res) => {
     if(!user) {
         return res.status(404).send("Logga in för att lägga till i kundvagn")
     }
-    user.cart.push(req.body.id)
+    let foundProduct = user.cart.find(product => product.id === req.body.id)
+    if(!foundProduct) {
+        const product = {
+            id: req.body.id, 
+            quantity: 1
+        }
+        user.cart.push(product)
+    } else {
+        foundProduct = {
+            id: req.body.id,
+            quantity: foundProduct.quantity++
+        }
+    }  
     fs.writeFileSync('users.json', JSON.stringify(users))
     res.status(200).send("Produkt tillagd i kundvagn")
 }

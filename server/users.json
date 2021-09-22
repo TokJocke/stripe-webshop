@@ -1,1 +1,1 @@
-[{"name":"test","pw":"$2a$10$7cInJ4Sn/8iUlexm.G/D7etT9CIb5IrhgNTR0t2aJOu4sgASxkOMe","cart":["3","2"]}]
+[{"name":"test","pw":"$2a$10$7cInJ4Sn/8iUlexm.G/D7etT9CIb5IrhgNTR0t2aJOu4sgASxkOMe","cart":[{"id":"3","quantity":15},{"id":"1","quantity":2},{"id":"2","quantity":4}]}]
