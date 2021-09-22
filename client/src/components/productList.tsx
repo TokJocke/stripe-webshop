@@ -1,37 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Product from './product';
 
 
-
+interface Iproduct {
+    name: string,
+    price: string,
+    info: string,
+    id: string
+}
 
 export default function ProductList() {
 
-    const products = [
-        {
-            name: "bordsfläkt",
-            price: "200kr",
-            info: "Blåser bra som fan, håll i hatten!"
-        },
-        {
-            name: "golvfläkt",
-            price: "600kr",
-            info: "Står på pinne och skapar storm!"
-        },
-        {
-            name: "takfläkt",
-            price: "1000kr",
-            info: "toppnotch!"
-        }
-    ]
+    const [products, setProducts] = useState<Iproduct[]>()
+
+    const getProducts = async () => {
+        const response = await fetch("http://localhost:3000/getProducts", {
+            method: "GET",
+            headers: {"content-type": "application/json"},
+            credentials: 'include',
+            
+        })
+        let data = await response.json()
+        setProducts(data)
+    }
+
+    useEffect(() => {
+        getProducts()
+    },[])
 
 
     return (
         <div style={productListStyle}>
-            {products.map((product) => {
-                return(
-                    <Product name={product.name} price={product.price} info={product.info} />
-                )
-            })}
+            
+            { 
+                products?
+                products.map((product) => {
+                    return(
+                        <Product name={product.name} price={product.price} info={product.info} id={product.id} />
+                    )
+                })
+                :
+                "Finns inga produkter"
+            }
         </div>
                 
     );

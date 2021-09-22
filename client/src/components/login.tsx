@@ -24,6 +24,7 @@ export default function Login() {
         const response = await fetch("http://localhost:3000/login", {
             method: "POST",
             headers: {"content-type": "application/json"},
+            credentials: 'include',
             body: JSON.stringify(user)
         })
         console.log(response)

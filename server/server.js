@@ -12,11 +12,16 @@ export const stripe = Stripe(secretKey)
 const server = express()
 const port = 3000
 
-server.use(cors());
+server.use(cors({ // Required for cookies to client. 
+    origin: 'http://localhost:3001',
+    methods: ["GET", "POST", "DELETE"],
+    credentials: true,
+  }));
+
 server.use(express.json())
 server.use(cookieSession({
     secret: "s3cretc00kie",
-    maxAge: 1000 * 10/* 1000 * 60 * 60 * 24 */,
+    maxAge: 1000 * 60 * 60 * 24,
     sameSite: "strict",
     httpOnly: true,
     secure: false

@@ -4,7 +4,6 @@ import ProductList from './productList';
 
 
 
-
 export default function Main() {
 
 /*     const stripe = useStripe()
@@ -27,6 +26,7 @@ export default function Main() {
     return (
         <div style={mainStyle}>
             <ProductList />
+            
  {/*            <button onClick={() => testPost()}>
                 Testa köp
             </button> */}
@@ -36,9 +36,11 @@ export default function Main() {
 }
 
 const mainStyle: CSSProperties = {
-    height: "75%",
+    /* minHeight: "75%", */
     width: "100%",
     backgroundColor: "orange",
     display: "flex",
+    flexDirection: "column",
+    flexGrow: 1
 }
 

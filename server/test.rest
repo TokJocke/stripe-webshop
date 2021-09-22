@@ -19,3 +19,12 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/logout 
+
+###
+
+POST http://localhost:3000/addToCart
+Content-Type: application/json
+
+{
+    "id": "1" 
+}
