@@ -1,10 +1,10 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 
 
 
 export default function Login() {
-
+    const history = useHistory()
     const [pw, setPw] = useState(undefined)
     const [name, setName] = useState(undefined)
 
@@ -21,7 +21,9 @@ export default function Login() {
             credentials: 'include',
             body: JSON.stringify({name: name, pw: pw})
         })
-        console.log(response) 
+        console.log(response)
+        history.push(`/${name}`)
+ 
     }
 
     const createUser = async () => {

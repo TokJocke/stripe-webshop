@@ -1,20 +1,38 @@
 import React, { CSSProperties } from 'react';
 import Login from './login';
 import Logout from './logout';
+import { Link, RouteComponentProps, useParams, useRouteMatch } from 'react-router-dom';
 
 
 
 
 export default function Header() {
 
-
+    
+    let match = useRouteMatch("/:username");
+    let username = match?.url.substr(1)
+    console.log(username, "this is the user")
+    
 
 
     return (
         <div style={headerStyle}>
-            header
-            <Logout />
-            <Login />
+            Fläktar AB
+            {
+                username?
+                <React.Fragment>
+                    <Link to={`${match?.url}/kundvagn`}>
+                        <button>
+                            Till kundvagn
+                        </button>
+                    </Link>
+                    
+                    <Logout /> 
+                </React.Fragment> 
+                    : 
+                    <Login /> 
+            }
+            
         </div>
     );
 }

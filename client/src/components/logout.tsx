@@ -1,9 +1,10 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 
 
 
 export default function Logout() {
+    const history = useHistory()
 
     const logout = async () => {
          
@@ -13,6 +14,7 @@ export default function Logout() {
             credentials: 'include',
         })
         console.log(response)
+        history.replace("/")
     }
 
     return (
