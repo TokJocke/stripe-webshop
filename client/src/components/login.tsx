@@ -15,20 +15,28 @@ export default function Login() {
         event? setName(event.target.value) : setName(undefined)     
     }
     const login = async () => {
-        const user = {
+   /*      const user = {
             name: name,
             pw: pw
-        }
-        
-        console.log(user)
+        } */
         const response = await fetch("http://localhost:3000/login", {
             method: "POST",
             headers: {"content-type": "application/json"},
             credentials: 'include',
-            body: JSON.stringify(user)
+            body: JSON.stringify({name: name, pw: pw})
         })
-        console.log(response)
-        
+        console.log(response) 
+    }
+
+    const createUser = async () => {
+
+        const response = await fetch("http://localhost:3000/createUser", {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            credentials: 'include',
+            body: JSON.stringify({name: name, pw: pw})
+        })
+        console.log(response) 
     }
 
     return (
@@ -49,6 +57,7 @@ export default function Login() {
                     />
             </div>
             <button onClick={() => login()}>Logga in</button>
+            <button onClick={() => createUser()}>Skapa användare</button>
         </div>
     );
 }

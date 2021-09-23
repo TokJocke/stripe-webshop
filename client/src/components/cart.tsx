@@ -1,10 +1,10 @@
 import { useStripe } from '@stripe/react-stripe-js';
 import React, { CSSProperties } from 'react';
-import ProductList from './productList';
+import InCartList from './inCartList';
 
 
 
-export default function Main() {
+export default function Cart() {
 
     const stripe = useStripe()
     console.log(stripe)
@@ -25,19 +25,19 @@ export default function Main() {
 
 
     return (
-        <div className={"main"} style={mainStyle}>
-            <ProductList />
+        <div style={cartStyle}>
+            <InCartList />
             
             <button onClick={() => testPost()}>
                 Testa köp
             </button>
-            <p>main</p>
+            <p>cart</p>
         </div>
                 
     );
 }
 
-const mainStyle: CSSProperties = {
+const cartStyle: CSSProperties = {
     width: "100%",
     backgroundColor: "orange",
     display: "flex",

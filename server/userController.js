@@ -2,7 +2,7 @@ import { v4 as uuidv4} from "uuid"
 import fs from "fs"
 import cookieSession from "cookie-session"
 import bcryptjs from "bcryptjs"
-
+import { createCustomer } from "./stripeController.js"
 
 
 export const createUser = async (req, res) => {
@@ -13,9 +13,10 @@ export const createUser = async (req, res) => {
     if(users.find(user => user.name === req.body.name)) {
         return res.status(409).send("Användarnamn är upptaget")
     }
-
+    const newCustomer = await createCustomer(req.body.name)
+    console.log("new customer: ", newCustomer.id)
     const hashedPw = await bcryptjs.hash(req.body.pw, 10)
-    users.push({name: req.body.name, pw: hashedPw, cart: []})
+    users.push({customerId: newCustomer.id, name: req.body.name, pw: hashedPw, cart: []})
 
     fs.writeFileSync("users.json", JSON.stringify(users))
     res.status(201).send("User created")
@@ -49,32 +50,3 @@ export const logout = (req, res) => {
     res.send("Du är utloggad")
 }
 
-export const addToCart = async (req, res) => {
-    let rawUsers = fs.readFileSync("users.json")
-    let users = JSON.parse(rawUsers)
-    const user = users.find(user => user.name === req.session.username)   
-    if(!user) {
-        return res.status(404).send("Logga in för att lägga till i kundvagn")
-    }
-    let foundProduct = user.cart.find(product => product.id === req.body.id)
-    if(!foundProduct) {
-        const product = {
-            id: req.body.id, 
-            quantity: 1
-        }
-        user.cart.push(product)
-    } else {
-        foundProduct = {
-            id: req.body.id,
-            quantity: foundProduct.quantity++
-        }
-    }  
-    fs.writeFileSync('users.json', JSON.stringify(users))
-    res.status(200).send("Produkt tillagd i kundvagn")
-}
-
-export const getProducts = async (req, res) => {
-    let rawProd = fs.readFileSync("products.json")
-    let productList = JSON.parse(rawProd)
-    res.json(productList)
-}

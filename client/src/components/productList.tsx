@@ -24,6 +24,16 @@ export default function ProductList() {
         setProducts(data)
     }
 
+    const addToCart = async (id: string) => {
+        const response = await fetch("http://localhost:3000/addToCart", {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            credentials: 'include',
+            body: JSON.stringify( {id: id})
+        })
+        console.log(response)
+    }
+
     useEffect(() => {
         getProducts()
     },[])
@@ -36,7 +46,14 @@ export default function ProductList() {
                 products?
                 products.map((product) => {
                     return(
-                        <Product name={product.name} price={product.price} info={product.info} id={product.id} />
+                        <Product> 
+                            <h1>{product.name}</h1>
+                            <p>{product.price}</p>
+                            <p>{product.info}</p>
+                            <button onClick={() => addToCart(product.id)}>
+                                Lägg i kundvagn
+                            </button>
+                        </Product>
                     )
                 })
                 :
