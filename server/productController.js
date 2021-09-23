@@ -31,31 +31,40 @@ export const getProducts = async (req, res) => {
     let productList = JSON.parse(rawProd)
     res.json(productList)
 }
-
-export const findCart = async (name, req, res) => {
+export const getCart = async (req, res) => {
     let rawUsers = fs.readFileSync("users.json")
     let users = JSON.parse(rawUsers)    
     let rawProd = fs.readFileSync("products.json")
     let products = JSON.parse(rawProd)
-    const user = users.find(user => user.name === name)
-    const lineItems = user.cart.map((product) => {
+
+    const user = users.find(user => user.name === req.session.username)
+    const cartItems = user.cart.map((product) => {
         const foundProduct = products.find(p => p.id === product.id) 
         const prod = {
-            description: foundProduct.info,
-            price_data: {
-                currency: "sek",
-                product_data: {
-                    name: foundProduct.name
-                },
-                unit_amount: parseInt(foundProduct.price) * 100
-            },
-            quantity: product.quantity     
+            name: foundProduct.name,
+            price: foundProduct.price,
+            info: foundProduct.info,
+            quantity: product.quantity,
+            id: foundProduct.id
+                
         }
         return prod     
     })
-    if(res) {
-        return res.json(lineItems)       
-    }
-
-    return lineItems
+    return res.json(cartItems)
 }
+
+export const changeQuantity = async (req, res) => {
+    let rawUsers = fs.readFileSync("users.json")
+    let users = JSON.parse(rawUsers)    
+    const user = users.find(user => user.name === req.session.username)
+    const foundProduct = user.cart.find(product => product.id === req.body.id)
+    if(req.body.addOrRemove === "+") {
+        foundProduct.quantity++
+    }
+    else if(req.body.addOrRemove === "-") {
+        foundProduct.quantity--
+    }
+    fs.writeFileSync('users.json', JSON.stringify(users))
+    console.log(foundProduct)
+    res.status(200).json("Changed quantity")
+} 

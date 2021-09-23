@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import Footer from './footer';
 import Header from './header';
-import ContentView from './main';
+import ContentView from './contentView';
 
 
 

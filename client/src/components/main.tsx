@@ -25,7 +25,7 @@ export default function Main() {
 
 
     return (
-        <div style={mainStyle}>
+        <div className={"main"} style={mainStyle}>
             <ProductList />
             
             <button onClick={() => testPost()}>

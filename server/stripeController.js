@@ -1,6 +1,5 @@
 import { stripe } from "./server.js"
 import fs from "fs"
-import { findCart } from "./productController.js"
 
 export const createCustomer = async (name) => {    
     const newCustomer = await stripe.customers.create({
@@ -19,7 +18,7 @@ const showCustomers = async () => { /* Only for testing */
 
 
 
-/* const findCart = (name) => {
+const findCart = (name) => {
     let rawUsers = fs.readFileSync("users.json")
     let users = JSON.parse(rawUsers)
     let rawProd = fs.readFileSync("products.json")
@@ -41,7 +40,7 @@ const showCustomers = async () => { /* Only for testing */
         return prod     
     })
     return lineItems
-} */
+}
 
 export const checkOut = async (req, res) => {
     let rawUsers = fs.readFileSync("users.json")
@@ -55,7 +54,7 @@ export const checkOut = async (req, res) => {
         const session = await stripe.checkout.sessions.create({
             customer: foundUser.customerId,
             payment_method_types: ["card"],
-            line_items: await findCart(name),
+            line_items: findCart(name),
             mode: "payment",
             success_url: "http://localhost:3001/", /* Change to sucess/cancel site */
             cancel_url: "http://localhost:3001/"

@@ -13,13 +13,11 @@ export default function ContentView() {
 
     return (
         
-        <div id={"contentView"}>
             <Switch>
-              {/*   <Route exact path={"/"} component={Main} />  */}     {/* trying to add dynamic region to url */}                    
-                <Route path={"/cart"} component={Cart} />
+                <Route exact path={"/"} component={Main} />       {/* trying to add dynamic region to url */}                    
+                <Route path={"/kundvagn"} component={Cart} />
             </Switch>                
-        </div>
-     
+    
     )
 }
 

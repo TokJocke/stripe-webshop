@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
+import { LogicalOperator, TypeOperatorNode } from 'typescript';
 import Product from './product';
 
 
@@ -10,7 +11,7 @@ interface Iproduct {
     id: string
 }
 
-export default function CartProducts() {
+export default function InCartList() {
 
     const [cartProducts, setCartProducts] = useState<Iproduct[]>()
 
@@ -25,12 +26,22 @@ export default function CartProducts() {
         setCartProducts(data)
     }
 
-    useEffect(() => {
+    const changeQuantity = async (id: string, addOrRemove: string) => {
+        const response = await fetch("http://localhost:3000/changeQuantity", {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            credentials: 'include',
+            body: JSON.stringify({id, addOrRemove})
+            
+        })
+    }
+
+/*     useEffect(() => {
         getCartProducts()
-    },[])
+    },[]) */
 
     useEffect(() => {
-        console.log(cartProducts)
+        getCartProducts()
     }, [cartProducts])
 
     return (
@@ -44,12 +55,15 @@ export default function CartProducts() {
                             <h1>{product.name}</h1>
                             <p>{product.price}</p>
                             <p>{product.info}</p>
-                            <button>
-                                +
-                            </button>
-                            <button>
-                                -
-                            </button>
+                            <div style={quantityDiv}>
+                                <button onClick={() => changeQuantity(product.id, "-")}>
+                                    -
+                                </button>
+                                <p>{product.quantity}</p>
+                                <button onClick={() => changeQuantity(product.id, "+")}>
+                                    +
+                                </button>
+                            </div>
                             <button>
                                 ta bort
                             </button>
@@ -68,3 +82,7 @@ const productListStyle = {
     display: "flex",
 }
 
+const quantityDiv: CSSProperties = {
+    display: "flex",
+    justifyContent: "space-between"
+}
