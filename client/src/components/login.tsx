@@ -15,10 +15,6 @@ export default function Login() {
         event? setName(event.target.value) : setName(undefined)     
     }
     const login = async () => {
-   /*      const user = {
-            name: name,
-            pw: pw
-        } */
         const response = await fetch("http://localhost:3000/login", {
             method: "POST",
             headers: {"content-type": "application/json"},

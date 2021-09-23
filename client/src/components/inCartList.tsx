@@ -64,7 +64,7 @@ export default function InCartList() {
                                     +
                                 </button>
                             </div>
-                            <button>
+                            <button onClick={() => changeQuantity(product.id, "delete")}>
                                 ta bort
                             </button>
                         </Product>

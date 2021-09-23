@@ -52,6 +52,7 @@ export const getCart = async (req, res) => {
     })
     return res.json(cartItems)
 }
+/* Blinkar i startbar på windows */
 
 export const changeQuantity = async (req, res) => {
     let rawUsers = fs.readFileSync("users.json")
@@ -63,6 +64,9 @@ export const changeQuantity = async (req, res) => {
     }
     else if(req.body.addOrRemove === "-") {
         foundProduct.quantity--
+    }
+    else if(req.body.addOrRemove === "delete") {
+        user.cart.splice(foundProduct, 1)
     }
     fs.writeFileSync('users.json', JSON.stringify(users))
     console.log(foundProduct)
