@@ -6,59 +6,59 @@ interface Iproduct {
     name: string,
     price: string,
     info: string,
+    quantity: string,
     id: string
 }
 
-export default function ProductList() {
+export default function CartProducts() {
 
-    const [products, setProducts] = useState<Iproduct[]>()
+    const [cartProducts, setCartProducts] = useState<Iproduct[]>()
 
-    const getProducts = async () => {
-        const response = await fetch("http://localhost:3000/getProducts", {
+    const getCartProducts = async () => {
+        const response = await fetch("http://localhost:3000/getCartProducts", {
             method: "GET",
             headers: {"content-type": "application/json"},
             credentials: 'include',
             
         })
         let data = await response.json()
-        setProducts(data)
-    }
-
-    const addToCart = async (id: string) => {
-        const response = await fetch("http://localhost:3000/addToCart", {
-            method: "POST",
-            headers: {"content-type": "application/json"},
-            credentials: 'include',
-            body: JSON.stringify( {id: id})
-        })
-        console.log(response)
+        setCartProducts(data)
     }
 
     useEffect(() => {
-        getProducts()
+        getCartProducts()
     },[])
 
+    useEffect(() => {
+        console.log(cartProducts)
+    }, [cartProducts])
 
     return (
         <div style={productListStyle}>
             
             { 
-                products?
-                products.map((product) => {
+                cartProducts?
+                cartProducts.map((product) => {
                     return(
                         <Product> 
                             <h1>{product.name}</h1>
                             <p>{product.price}</p>
                             <p>{product.info}</p>
-                            <button onClick={() => addToCart(product.id)}>
-                                Lägg i kundvagn
+                            <button>
+                                +
+                            </button>
+                            <button>
+                                -
+                            </button>
+                            <button>
+                                ta bort
                             </button>
                         </Product>
                     )
                 })
                 :
                 "Finns inga produkter"
-            }
+            } 
         </div>
                 
     );
