@@ -1,7 +1,7 @@
 import express from "express"
 import { createUser, login, logout } from "./userController.js";
 import { addToCart, getCart, getProducts, changeQuantity } from "./productController.js"
-import { checkOut } from "./stripeController.js"
+import { checkOut, getOrder, verifySession } from "./stripeController.js"
 const routes = express.Router();
 
 /* USERS */
@@ -15,4 +15,6 @@ routes.get("/getCartProducts", getCart)
 routes.post("/changeQuantity", changeQuantity)
 /* STRIPE */
 routes.post("/session", checkOut)
+routes.post("/verifySession", verifySession)
+routes.post("/getOrder", getOrder)
 export default routes

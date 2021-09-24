@@ -1,10 +1,12 @@
 import { useStripe } from '@stripe/react-stripe-js';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import InCartList from './inCartList';
 
 
 
 export default function Cart() {
+
+    const [session, setSession] = useState()
 
     const stripe = useStripe()
     console.log(stripe)
@@ -17,10 +19,18 @@ export default function Cart() {
             credentials: 'include',
         })
         const { id } = await response.json()
+            console.log(id)
             console.log(stripe)
+            setSession(id)
             stripe.redirectToCheckout({sessionId: id})
         }
+        
+    }
 
+    async function testRetrieve() {
+        if(session) {
+            const response = await fetch('http://localhost:3000/session')
+        }
     }
 
 
