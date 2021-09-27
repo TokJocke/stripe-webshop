@@ -27,7 +27,7 @@ export default function Success() {
         })
     }
 
-    async function getSession() {
+    async function getCurrentOrder() {
         const response = await fetch("http://localhost:3000/getOrder", {
             method: "POST",
             headers: {"content-type": "application/json"},
@@ -43,7 +43,7 @@ export default function Success() {
         <div style={successStyle}>
          <p>Payment success</p>
          <button onClick={() => verifySession()}>Verify</button>
-         <button onClick={() => getSession()}>Hämta order</button>
+         <button onClick={() => getCurrentOrder()}>Hämta order</button>
         </div>
                 
     );
