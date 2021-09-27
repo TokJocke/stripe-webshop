@@ -8,23 +8,17 @@ export const createCustomer = async (name) => {
     return newCustomer
 } 
 
-const showCustomers = async () => { /* Only for testing */
-    const customers = await stripe.customers.list({
-        limit: 3,
-      });
-    
-    return customers
-}
-
-
-
-const findCart = (name) => {
+export const checkOut = async (req, res) => {
     let rawUsers = fs.readFileSync("users.json")
     let users = JSON.parse(rawUsers)
     let rawProd = fs.readFileSync("products.json")
     let products = JSON.parse(rawProd)
-    const user = users.find(user => user.name === name)
-    const lineItems = user.cart.map((product) => {
+
+    const name = req.session.username
+    const foundUser = users.find(user => user.name === name)
+
+    if(foundUser) {
+    const lineItems = foundUser.cart.map((product) => {
         const foundProduct = products.find(p => p.id === product.id) 
         const prod = {
             description: foundProduct.info,
@@ -35,35 +29,87 @@ const findCart = (name) => {
                 },
                 unit_amount: parseInt(foundProduct.price) * 100
             },
-            quantity: product.quantity     
+            quantity: product.quantity,     
         }
         return prod     
     })
-    return lineItems
-}
-
-export const checkOut = async (req, res) => {
-    let rawUsers = fs.readFileSync("users.json")
-    let users = JSON.parse(rawUsers)
-
-    const name = req.session.username
-    const foundUser = users.find(user => user.name === name)
 
     console.log("found ID: ", foundUser.customerId)
-    if(foundUser) {
         const session = await stripe.checkout.sessions.create({
             customer: foundUser.customerId,
             payment_method_types: ["card"],
-            line_items: findCart(name),
+            line_items: lineItems,
             mode: "payment",
-            success_url: "http://localhost:3001/", /* Change to sucess/cancel site */
+            success_url: `http://localhost:3001/${foundUser.name}/success/{CHECKOUT_SESSION_ID}`, /* Change to sucess/cancel site */
             cancel_url: "http://localhost:3001/"
-        })
-        //console.log(session)
-        console.log(await showCustomers(), " customer list")
+        })     
         res.status(200).json({ id: session.id })
     }
     else {
         console.log( " in else ")
     }
 }
+
+export const verifySession = async (req, res) => {
+    let rawOrders = fs.readFileSync("orders.json")
+    let orders = JSON.parse(rawOrders)
+    
+    const sessionId = req.body.sessionId
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const customerId = session.customer
+    
+    if(session.payment_status === "paid") {
+        const foundSessionId = orders.find(order => order.session === sessionId)
+        if(!foundSessionId) {
+
+            const lineItems = await stripe.checkout.sessions.listLineItems(req.body.sessionId);
+            const orderProducts = await Promise.all(lineItems.data.map( async (item) => {
+            const product = await stripe.products.retrieve(item.price.product);
+              const orderProduct = {  
+                    name: product.name,
+                    currency: item.currency,
+                    quantity: item.quantity,
+                    description: item.description,
+                    unitPrice: item.price.unit_amount / 100
+                }
+                return orderProduct      
+            }))
+            const newOrder = {
+                session: sessionId,
+                customer: customerId, 
+                products: orderProducts,
+                amountTotal: session.amount_total / 100    
+            }
+            
+            orders.push(newOrder)
+
+            fs.writeFileSync("orders.json", JSON.stringify(orders))
+            console.log("det gick")
+            res.status(200).json("Success")
+        }
+        else {
+            console.log("Finns redan")
+            res.status(404).json("Ordern finns redan registrerad")
+        }
+    }
+    
+} 
+
+/* export const getOrder = async (req, res) => {
+    // Vill ha desc, namn, unitPrice, currency, quantity, totalAmount order.
+    let orderArr = []
+    const lineItems = await stripe.checkout.sessions.listLineItems(req.body.sessionId);
+    await Promise.all(lineItems.data.map( async (item) => {
+    const product = await stripe.products.retrieve(item.price.product);
+      const orderProperties = {
+            name: product.name,
+            currency: item.currency,
+            quantity: item.quantity,
+            description: item.description,
+            unitPrice: item.price.unit_amount
+        }
+        orderArr.push(orderProperties)
+        
+    }))
+    return res.json(orderArr)
+} */
