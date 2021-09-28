@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { LogicalOperator, TypeOperatorNode } from 'typescript';
 import Product from './product';
 
@@ -14,6 +15,7 @@ interface Iproduct {
 export default function InCartList() {
 
     const [cartProducts, setCartProducts] = useState<Iproduct[]>()
+    const history = useHistory()
 
     const getCartProducts = async () => {
         const response = await fetch("http://localhost:3000/getCartProducts", {
@@ -23,7 +25,12 @@ export default function InCartList() {
             
         })
         let data = await response.json()
-        setCartProducts(data)
+        if(response.status === 401) { //lägg ut på flera ställen
+            history.push("/no-user/401")
+        }
+        else {
+            setCartProducts(data)
+        }
     }
 
     const changeQuantity = async (id: string, addOrRemove: string) => {
@@ -34,6 +41,7 @@ export default function InCartList() {
             body: JSON.stringify({id, addOrRemove})
             
         })
+        getCartProducts()
     }
 
 /*     useEffect(() => {
@@ -42,7 +50,7 @@ export default function InCartList() {
 
     useEffect(() => {
         getCartProducts()
-    }, [cartProducts])
+    }, [])
 
     return (
         <div style={productListStyle}>
