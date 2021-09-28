@@ -11,7 +11,7 @@ export default function Cart() {
     const stripe = useStripe()
     console.log(stripe)
 
-    async function testPost() {
+    async function toCheckOut() {
         if(stripe) {
         const response = await fetch("http://localhost:3000/session", {
             method: "POST",
@@ -38,10 +38,9 @@ export default function Cart() {
         <div style={cartStyle}>
             <InCartList />
             
-            <button onClick={() => testPost()}>
-                Testa köp
+            <button className="blueBtnEffect" style={checkoutBtnStyle} onClick={() => toCheckOut()}>
+                Till Checkout
             </button>
-            <p>cart</p>
         </div>
                 
     );
@@ -49,9 +48,21 @@ export default function Cart() {
 
 const cartStyle: CSSProperties = {
     width: "100%",
-    backgroundColor: "orange",
+    backgroundColor: "rgb(230, 230, 230)",
     display: "flex",
     flexDirection: "column",
-    flexGrow: 1
+    flexGrow: 1,
+    justifyContent: "space-between",
+    alignItems: "center"
 }
 
+const checkoutBtnStyle: CSSProperties = {
+    marginBottom: "20px",
+    fontSize: "1.5em",
+    padding: "15px",
+    border: "none",
+    backgroundColor: "rgb(85, 150, 245)",
+    borderRadius: "5px",
+    color: "white",
+    cursor: "pointer"
+}

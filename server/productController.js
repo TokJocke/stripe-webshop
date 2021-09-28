@@ -63,7 +63,11 @@ export const changeQuantity = async (req, res) => {
         foundProduct.quantity++
     }
     else if(req.body.addOrRemove === "-") {
-        foundProduct.quantity--
+        if(foundProduct.quantity === 1 ) {
+            user.cart.splice(foundProduct, 1)
+        } else {
+            foundProduct.quantity--
+        }
     }
     else if(req.body.addOrRemove === "delete") {
         user.cart.splice(foundProduct, 1)

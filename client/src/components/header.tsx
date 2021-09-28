@@ -17,20 +17,35 @@ export default function Header() {
 
     return (
         <div style={headerStyle}>
-            Fläktar AB
             {
                 username?
-                <React.Fragment>
-                    <Link to={`${match?.url}/kundvagn`}>
-                        <button>
-                            Till kundvagn
-                        </button>
-                    </Link>
-                    
-                    <Logout /> 
-                </React.Fragment> 
+                    <React.Fragment>
+                        <Link style={titleStyle} to={`${match?.url}`}>
+                            <h1>Fläktar Gött, ej AB</h1>
+                        </Link>
+                       
+                        <Logout>
+                            <div style={btnWrap}>
+                                <Link to={`${match?.url}/kundvagn`}>
+                                    <button className="blueBtnEffect" style={btnStyle}>
+                                        Kundvagn
+                                    </button>
+                                </Link>
+                                <Link to={`${match?.url}/gamla-ordrar`}>
+                                    <button className="blueBtnEffect" style={btnStyle}>
+                                        Gamla ordrar
+                                    </button>
+                                </Link>
+                            </div>
+                        </Logout> 
+                    </React.Fragment> 
                     : 
-                    <Login /> 
+                    <React.Fragment>
+                        <Link style={titleStyle} to={"/"}>
+                            <h1>Fläktar Gött, ej AB</h1>
+                        </Link>
+                        <Login /> 
+                    </React.Fragment>
             }
             
         </div>
@@ -40,7 +55,31 @@ export default function Header() {
 const headerStyle: CSSProperties = {
     height: "20%",
     width: "100%",
-    backgroundColor: "blue",    
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: "rgb(33, 33, 33)",
+    color: "rgb(230, 230, 230)",
+    paddingTop: "10px",
+    paddingBottom: "10px"
+}
+
+const btnStyle: CSSProperties = {
+    width: "100%",
+    cursor: "pointer",
+    fontSize: "1.2em",
+    border: "none",
+    borderRadius: "5px",
+    backgroundColor: "rgb(85, 150, 245)",
+    color: "white",
+    marginBottom: "5px"
+}
+
+const btnWrap: CSSProperties = {
+    display: "flex",
+    flexDirection: "column"
+}
+
+const titleStyle: CSSProperties = {
+    alignSelf: "center",
+    marginLeft: "10px"
 }

@@ -56,16 +56,16 @@ export default function InCartList() {
                             <p>{product.price}</p>
                             <p>{product.info}</p>
                             <div style={quantityDiv}>
-                                <button onClick={() => changeQuantity(product.id, "-")}>
+                                <button className="redBtnEffect" style={{...quantityBtnStyle, backgroundColor: "rgb(244, 113, 116)"}} onClick={() => changeQuantity(product.id, "-")}>
                                     -
                                 </button>
                                 <p>{product.quantity}</p>
-                                <button onClick={() => changeQuantity(product.id, "+")}>
+                                <button className="greenBtnEffect" style={{...quantityBtnStyle, backgroundColor: "RGB(111, 194, 118)"}} onClick={() => changeQuantity(product.id, "+")}>
                                     +
                                 </button>
                             </div>
-                            <button onClick={() => changeQuantity(product.id, "delete")}>
-                                ta bort
+                            <button className="blueBtnEffect" style={removeBtnStyle} onClick={() => changeQuantity(product.id, "delete")}>
+                                Ta bort
                             </button>
                         </Product>
                     )
@@ -78,11 +78,37 @@ export default function InCartList() {
     );
 }
 
-const productListStyle = {
+const productListStyle: CSSProperties = {
     display: "flex",
+    justifyContent: "center"
 }
 
 const quantityDiv: CSSProperties = {
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%"
+}
+
+const quantityBtnStyle: CSSProperties = {
+    borderRadius: "5px",
+    height: "50%",
+    border: "none",
+    fontSize: "1.2em",
+    padding: "15px",
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer"
+}
+
+const removeBtnStyle: CSSProperties = {
+    borderRadius: "5px",
+    width: "100%",
+    fontSize: "1.2em",
+    border: "none",
+    backgroundColor: "rgb(85, 150, 245)",
+    color: "white",
+    cursor: "pointer",
+    padding: "5px"
+
 }

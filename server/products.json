@@ -1,20 +1,20 @@
 [
     {
         "id": "1",
-        "name": "bordsfläkt",
+        "name": "Bordsfläkt",
         "price": "200kr",
         "info": "Blåser bra som fan, håll i hatten!"
     },
     {
         "id": "2",
-        "name": "golvfläkt",
+        "name": "Golvfläkt",
         "price": "600kr",
         "info": "Står på pinne och skapar storm!"
     },
     {
         "id": "3",
-        "name": "takfläkt",
+        "name": "Takfläkt",
         "price": "1000kr",
-        "info": "toppnotch!"
+        "info": "Toppnotch!"
     }
 ]

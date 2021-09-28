@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import Product from './product';
 
 
@@ -50,7 +50,7 @@ export default function ProductList() {
                             <h1>{product.name}</h1>
                             <p>{product.price}</p>
                             <p>{product.info}</p>
-                            <button onClick={() => addToCart(product.id)}>
+                            <button className="blueBtnEffect" style={btnStyle} onClick={() => addToCart(product.id)}>
                                 Lägg i kundvagn
                             </button>
                         </Product>
@@ -64,7 +64,19 @@ export default function ProductList() {
     );
 }
 
-const productListStyle = {
+const productListStyle: CSSProperties = {
     display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap"
 }
 
+const btnStyle: CSSProperties = {
+    backgroundColor: "rgb(85, 150, 245)",
+    color: "white",
+    fontSize: "1.2em",
+    border: "none",
+    borderRadius: "5px",
+    padding: "5px",
+    cursor: "pointer",
+    
+}

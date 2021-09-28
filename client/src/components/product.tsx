@@ -24,6 +24,8 @@ const productStyle: CSSProperties = {
     backgroundColor: "white",
     margin: "10px",
     padding: "10px",
-    borderRadius: "10px"    
+    borderRadius: "10px",
+    border: "4px solid rgb(85, 150, 245)",
+    alignItems: "center"
 }
 
