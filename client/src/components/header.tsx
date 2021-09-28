@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import Login from './login';
 import Logout from './logout';
 import { Link, RouteComponentProps, useParams, useRouteMatch } from 'react-router-dom';
@@ -8,17 +8,35 @@ import { Link, RouteComponentProps, useParams, useRouteMatch } from 'react-route
 
 export default function Header() {
 
-    
+    const [isAuth, setIsAuth] = useState(false)
+
     let match = useRouteMatch("/:username");
     let username = match?.url.substr(1)
     console.log(username, "this is the user")
     
+    const auth = async () => {
+        const response = await fetch("http://localhost:3000/auth", {
+            method: "GET",
+            headers: {"content-type": "application/json"},
+            credentials: 'include',
+        })
+        console.log(response)
+        if(response.status === 401) {
+            setIsAuth(false)
+        }
+        else {
+            setIsAuth(true)
+        }
+    }
 
+    useEffect(() => {
+        auth()
+    })
 
     return (
         <div style={headerStyle}>
             {
-                username?
+                isAuth?
                     <React.Fragment>
                         <Link style={titleStyle} to={`${match?.url}`}>
                             <h1>Fläktar Gött, ej AB</h1>

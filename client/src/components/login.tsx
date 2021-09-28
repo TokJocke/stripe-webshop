@@ -1,6 +1,5 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, /* Props, */ useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 
 
 export default function Login() {
@@ -22,7 +21,13 @@ export default function Login() {
             body: JSON.stringify({name: name, pw: pw})
         })
         console.log(response)
-        history.push(`/${name}`)
+        if(response.status === 401) {
+            history.push("/no-user/401")
+        }
+        else {
+            history.push(`/${name}`)
+
+        }
  
     }
 
