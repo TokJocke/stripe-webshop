@@ -41,7 +41,7 @@ export const checkOut = async (req, res) => {
             line_items: lineItems,
             mode: "payment",
             success_url: `http://localhost:3001/${foundUser.name}/success/{CHECKOUT_SESSION_ID}`, /* Change to sucess/cancel site */
-            cancel_url: "http://localhost:3001/"
+            cancel_url: `http://localhost:3001/${foundUser.name}`
         })     
         res.status(200).json({ id: session.id })
     }
@@ -74,11 +74,15 @@ export const verifySession = async (req, res) => {
                 }
                 return orderProduct      
             }))
+
+            let d = new Date(); 
+            let NoTimeDate = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate(); 
             const newOrder = {
                 session: sessionId,
                 customer: customerId, 
                 products: orderProducts,
-                amountTotal: session.amount_total / 100    
+                amountTotal: session.amount_total / 100,
+                orderDate: NoTimeDate
             }
             
             orders.push(newOrder)
@@ -104,4 +108,19 @@ export const getOrder = async (req, res) => {
     console.log(foundOrder)
 
     res.status(200).json(foundOrder)
+}
+
+export const getAllOrders = async (req, res) => {
+    let rawOrders = fs.readFileSync("orders.json")
+    let orders = JSON.parse(rawOrders)
+    let rawUsers = fs.readFileSync("users.json")
+    let users = JSON.parse(rawUsers)
+
+    const name = req.session.username
+    const foundUser = users.find(user => user.name === name)
+    
+    const filterdOrders = orders.filter(order => order.customer === foundUser.customerId)
+    console.log("username = ", foundUser)
+    console.log(filterdOrders)
+    res.status(200).json(filterdOrders)
 }

@@ -21,6 +21,7 @@ interface orderInterface {
     customer: string
     products: productInterface[]
     session: string
+    orderDate: string
 }
 
 export default function Success() {
@@ -154,18 +155,18 @@ const productStyle: CSSProperties = {
     //flexDirection: "column",
     backgroundColor: "white",
     marginBottom: "10px",
-    padding: "10px",
+    padding: "5px",
     justifyContent: "space-between",
     width: "100%",
-    margin: 0,
+    borderRadius: "5px"    
 }
 
-const prodPropDiv: CSSProperties = {
+export const prodPropDiv: CSSProperties = {
     display: "flex",
     alignItems: "center"
 }
 
-const totalAmountStyle: CSSProperties = {
+export const totalAmountStyle: CSSProperties = {
     fontSize: "1.5em",
     color: "rgb(230, 230, 230)",
     textAlign: "center"
@@ -174,14 +175,16 @@ const totalAmountStyle: CSSProperties = {
 const orderWrapper: CSSProperties = {
     padding: "20px",
     backgroundColor: "rgb(30, 30, 30)",
-    width: "50%"
+    width: "50%",
+    borderRadius: "15px",
+    
 }
 
-const descriptionStyle: CSSProperties = {
+export const descriptionStyle: CSSProperties = {
     margin: 0,
     fontStyle: "italic",
 }
 
-const textStyle: CSSProperties = {
+export const textStyle: CSSProperties = {
     margin: 0
 }
