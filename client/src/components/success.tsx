@@ -21,6 +21,7 @@ interface orderInterface {
     customer: string
     products: productInterface[]
     session: string
+    orderDate: string
 }
 
 export default function Success() {
