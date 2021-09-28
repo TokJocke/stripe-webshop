@@ -1,3 +1,4 @@
+import { CssFontSource } from '@stripe/stripe-js';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import Order from './order';
 
@@ -47,11 +48,24 @@ export default function OldOrders() {
             {
                 orderInfo? 
                     orderInfo.map((order) => {
-                        <Order date={order.orderDate}>
-                           
-                            asdasd  
+                        return (
+                            <Order date={order.orderDate}>         
+                                {
+                                    order.products.map((product) => {
+                                        return (
+                                                <div style={productRow}>
+                                                    <p>{product.quantity + "x" + " " + product.name }</p>
+                                                    <p>{product.unitPrice * product.quantity}</p> {/* Tog x quantity här, kanske snyggt? */}
+                                                    <p>{product.currency}</p>
+                                                </div>                                                      
+                                        )           
+                                    })
+                                    
+                                }                                     
+                                    <p>{"Total belopp: " + order.amountTotal}</p>
+                            </Order>
 
-                        </Order>
+                        )
                     })
                 :
                 null
@@ -68,5 +82,9 @@ const wrapper: CSSProperties = {
     display: "flex",
     flexDirection: "column",
     flexGrow: 1
+}
+
+const productRow: CSSProperties = {
+    display: "flex"
 }
 

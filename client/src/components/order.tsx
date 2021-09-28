@@ -9,19 +9,19 @@ interface Props {
 
 export default function Order(props: Props) {
 
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
     return (
        <div onClick={() => setIsOpen(!isOpen)} style={orderWrapper} >
             <p>{props.date}</p>
-   {/*          {
+            {
                 isOpen? 
                     <div>
                         {props.children}
                     </div>
                 :
                 null
-            } */}
+            }
        </div>
           
     
@@ -29,6 +29,4 @@ export default function Order(props: Props) {
 }
 
 const orderWrapper: CSSProperties = {
-    padding: "50px",
-    backgroundColor: "black"
 }

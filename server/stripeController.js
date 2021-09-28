@@ -119,15 +119,6 @@ export const getAllOrders = async (req, res) => {
     const name = req.session.username
     const foundUser = users.find(user => user.name === name)
     
-    /* const foundOrders = orders.map((order) => {
-        if(order.customer === foundUser.customerId) {
-            return order
-        }
-        else {
-
-        }
-    }) */
-
     const filterdOrders = orders.filter(order => order.customer === foundUser.customerId)
     console.log("username = ", foundUser)
     console.log(filterdOrders)
