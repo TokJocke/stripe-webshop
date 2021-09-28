@@ -16,7 +16,7 @@ export default function Order(props: Props) {
             <p>{props.date}</p>
             {
                 isOpen? 
-                    <div>
+                    <div style={dropDownStyle}>
                         {props.children}
                     </div>
                 :
@@ -29,4 +29,22 @@ export default function Order(props: Props) {
 }
 
 const orderWrapper: CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "white",
+    alignItems: "center",
+    marginTop: "15px",
+    cursor: "pointer",
+}
+
+const dropDownStyle: CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "rgb(30, 30, 30)",
+    alignItems: "center",
+    borderRadius: "15px",
+    width: "50%",
+    color: "rgb(230, 230, 230)",
+    padding: "20px"
+
 }

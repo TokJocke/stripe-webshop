@@ -1,6 +1,7 @@
 import { CssFontSource } from '@stripe/stripe-js';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import Order from './order';
+import { descriptionStyle, prodPropDiv, textStyle, totalAmountStyle } from './success';
 
 
 interface productInterface {
@@ -44,7 +45,7 @@ export default function OldOrders() {
     }, [orderInfo])
 
     return (
-       <div style={wrapper}>
+       <div className="wrapper" style={wrapper}>
             {
                 orderInfo? 
                     orderInfo.map((order) => {
@@ -54,16 +55,28 @@ export default function OldOrders() {
                                     order.products.map((product) => {
                                         return (
                                                 <div style={productRow}>
-                                                    <p>{product.quantity + "x" + " " + product.name }</p>
-                                                    <p>{product.unitPrice * product.quantity}</p> {/* Tog x quantity här, kanske snyggt? */}
-                                                    <p>{product.currency}</p>
+                                                    <div style={prodPropDiv}>
+                                                        <p style={textStyle}>{product.quantity + "x" + " " + product.name }</p> 
+                                                    </div>
+                                                     <div>
+                                                        <p style={descriptionStyle}>Beskrivning:</p>
+                                                        <p style={descriptionStyle}>{product.description}</p>
+                                                    </div>
+                                                    <div style={prodPropDiv}>
+                                                        <p style={textStyle}>{product.unitPrice}</p>
+                                                        <p style={textStyle}>{product.currency}</p>
+                                                    </div>
                                                 </div>                                                      
                                         )           
                                     })
                                     
                                 }                                     
-                                    <p>{"Total belopp: " + order.amountTotal}</p>
+                                    <p style={totalAmountStyle}>{"Total belopp: " + order.amountTotal}</p>
                             </Order>
+
+                      
+
+
 
                         )
                     })
@@ -85,6 +98,13 @@ const wrapper: CSSProperties = {
 }
 
 const productRow: CSSProperties = {
-    display: "flex"
+    display: "flex",
+    backgroundColor: "white",
+    color: "black",
+    width: "100%",
+    justifyContent: "space-between",
+    marginBottom: "10px",
+    borderRadius: "5px",
+    padding: "5px"
 }
 
