@@ -33,11 +33,6 @@ export default function Success() {
     let match = useRouteMatch<MatchParams>({
         path: "/:username/success/:id"
     });
-    
-
-   
-
-
 
     const sessionId = match?.params.id
     const userName = match?.params.username

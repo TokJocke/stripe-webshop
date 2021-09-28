@@ -53,10 +53,14 @@ export const checkOut = async (req, res) => {
 export const verifySession = async (req, res) => {
     let rawOrders = fs.readFileSync("orders.json")
     let orders = JSON.parse(rawOrders)
+    let rawUsers = fs.readFileSync("users.json")
+    let users = JSON.parse(rawUsers)
+
     
     const sessionId = req.body.sessionId
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     const customerId = session.customer
+    const foundUser = users.find(user => user.customerId === customerId)
     
     if(session.payment_status === "paid") {
         const foundSessionId = orders.find(order => order.session === sessionId)
@@ -84,9 +88,9 @@ export const verifySession = async (req, res) => {
                 amountTotal: session.amount_total / 100,
                 orderDate: NoTimeDate
             }
-            
+            foundUser.cart.splice(0)
             orders.push(newOrder)
-
+            fs.writeFileSync("users.json", JSON.stringify(users))
             fs.writeFileSync("orders.json", JSON.stringify(orders))
             console.log("det gick")
             res.status(200).json("Ordern har lagts")
