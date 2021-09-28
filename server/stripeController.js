@@ -85,7 +85,7 @@ export const verifySession = async (req, res) => {
 
             fs.writeFileSync("orders.json", JSON.stringify(orders))
             console.log("det gick")
-            res.status(200).json("Success")
+            res.status(200).json("Ordern har lagts")
         }
         else {
             console.log("Finns redan")
@@ -95,21 +95,13 @@ export const verifySession = async (req, res) => {
     
 } 
 
-/* export const getOrder = async (req, res) => {
-    // Vill ha desc, namn, unitPrice, currency, quantity, totalAmount order.
-    let orderArr = []
-    const lineItems = await stripe.checkout.sessions.listLineItems(req.body.sessionId);
-    await Promise.all(lineItems.data.map( async (item) => {
-    const product = await stripe.products.retrieve(item.price.product);
-      const orderProperties = {
-            name: product.name,
-            currency: item.currency,
-            quantity: item.quantity,
-            description: item.description,
-            unitPrice: item.price.unit_amount
-        }
-        orderArr.push(orderProperties)
-        
-    }))
-    return res.json(orderArr)
-} */
+export const getOrder = async (req, res) => {
+    const id = req.body.sessionId
+    let rawOrders = fs.readFileSync("orders.json")
+    let orders = JSON.parse(rawOrders)
+
+    const foundOrder = orders.find(order => order.session === id)
+    console.log(foundOrder)
+
+    res.status(200).json(foundOrder)
+}
