@@ -11,8 +11,8 @@ interface Iproduct {
 
 export default function ProductList() {
    
-    const [isAuth, setIsAuth] = useState(false)
     const [products, setProducts] = useState<Iproduct[]>()
+/*     const [isAuth, setIsAuth] = useState(false)
 
     const auth = async () => {
         const response = await fetch("http://localhost:3000/auth", {
@@ -30,7 +30,7 @@ export default function ProductList() {
 
     useEffect(() => {
         auth()
-    }, [])
+    }, []) */
 
 
     const getProducts = async () => {
@@ -51,8 +51,10 @@ export default function ProductList() {
             credentials: 'include',
             body: JSON.stringify( {id: id})
         })
-        console.log(response)
-    }
+        if(response.status === 401) {
+            alert("logga in för att lägga till varor i kundvagnen")
+        }
+    } 
 
     useEffect(() => {
         getProducts()
@@ -70,7 +72,7 @@ export default function ProductList() {
                             <h1>{product.name}</h1>
                             <p>{product.price}</p>
                             <p>{product.info}</p>
-                            <button disabled={isAuth? false : true} className="blueBtnEffect" style={btnStyle} onClick={() => addToCart(product.id)}>
+                            <button /* disabled={isAuth? false : true} */ className="blueBtnEffect" style={btnStyle} onClick={() => addToCart(product.id)}>
                                 Lägg i kundvagn
                             </button>
                         </Product>
