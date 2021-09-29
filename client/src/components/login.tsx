@@ -1,4 +1,4 @@
-import React, { CSSProperties, /* Props, */ useEffect, useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 interface Props {
@@ -86,11 +86,6 @@ const inputStyle: CSSProperties = {
     border: "none",
     marginBottom: "5px",
     padding: "5px"
-}
-
-const textStyle: CSSProperties = {
-    margin: 0,
-    fontSize: "1.1em"
 }
 
 const btnStyle: CSSProperties = {

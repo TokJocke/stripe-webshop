@@ -1,6 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LogicalOperator, TypeOperatorNode } from 'typescript';
 import Product from './product';
 
 
@@ -12,7 +11,11 @@ interface Iproduct {
     id: string
 }
 
-export default function InCartList() {
+interface Props {
+    ifCart: any
+}
+
+export default function InCartList(props: Props) {
 
     const [cartProducts, setCartProducts] = useState<Iproduct[]>()
     const history = useHistory()
@@ -34,7 +37,7 @@ export default function InCartList() {
     }
 
     const changeQuantity = async (id: string, addOrRemove: string) => {
-        const response = await fetch("http://localhost:3000/changeQuantity", {
+        await fetch("http://localhost:3000/changeQuantity", {
             method: "POST",
             headers: {"content-type": "application/json"},
             credentials: 'include',
@@ -44,9 +47,18 @@ export default function InCartList() {
         getCartProducts()
     }
 
-/*     useEffect(() => {
-        getCartProducts()
-    },[]) */
+    const checkCart = () => {
+        if(cartProducts && cartProducts.length) {
+            props.ifCart(true)
+        }
+        else {
+            props.ifCart(false)
+        }
+    }
+
+    useEffect(() => {
+        checkCart()
+    }, [cartProducts])
 
     useEffect(() => {
         getCartProducts()
@@ -56,10 +68,10 @@ export default function InCartList() {
         <div style={productListStyle}>
             
             { 
-                cartProducts?
-                cartProducts.map((product) => {
+                cartProducts && cartProducts.length?
+                cartProducts.map((product, i) => {
                     return(
-                        <Product> 
+                        <Product key={i}> 
                             <h1>{product.name}</h1>
                             <p>{product.price}</p>
                             <p>{product.info}</p>
@@ -79,7 +91,7 @@ export default function InCartList() {
                     )
                 })
                 :
-                "Finns inga produkter"
+                <p>Din kundvagn är tom</p>
             } 
         </div>
                 

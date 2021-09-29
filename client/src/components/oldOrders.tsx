@@ -100,8 +100,9 @@ const wrapper: CSSProperties = {
     width: "100%",
     backgroundColor: "rgb(230, 230, 230)",
     display: "flex",
-    flexDirection: "column",
-    flexGrow: 1
+    flexDirection: "column-reverse",
+    flexGrow: 1,
+    justifyContent: "flex-end"
 }
 
 const productRow: CSSProperties = {

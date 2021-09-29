@@ -6,10 +6,10 @@ import InCartList from './inCartList';
 
 export default function Cart() {
 
-    const [session, setSession] = useState()
-
+    const [ifCart, setIfCart] = useState(undefined)
+   // const [session, setSession] = useState() //Vad har vi för nytta av denna?
     const stripe = useStripe()
-    console.log(stripe)
+
 
     async function toCheckOut() {
         if(stripe) {
@@ -21,26 +21,26 @@ export default function Cart() {
         const { id } = await response.json()
             console.log(id)
             console.log(stripe)
-            setSession(id)
+           // setSession(id)
             stripe.redirectToCheckout({sessionId: id})
         }
         
     }
-
-    async function testRetrieve() {
-        if(session) {
-            const response = await fetch('http://localhost:3000/session')
-        }
-    }
-
+    
 
     return (
         <div style={cartStyle}>
-            <InCartList />
             
-            <button className="blueBtnEffect" style={checkoutBtnStyle} onClick={() => toCheckOut()}>
-                Till Checkout
-            </button>
+            <InCartList ifCart={setIfCart}/>
+            {
+                ifCart?                 
+                    <button className="blueBtnEffect" style={checkoutBtnStyle} onClick={() => toCheckOut()}>
+                        Till Checkout
+                    </button>
+                :
+                    null
+
+            }
         </div>
                 
     );

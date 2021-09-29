@@ -1,7 +1,7 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import Login from './login';
 import Logout from './logout';
-import { Link, RouteComponentProps, useParams, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 
 
