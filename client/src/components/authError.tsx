@@ -1,17 +1,18 @@
-import { useStripe } from '@stripe/react-stripe-js';
-import React, { CSSProperties, useState } from 'react';
-import InCartList from './inCartList';
-
+import { Link } from 'react-router-dom';
+import { btnStyle, contentWrapper } from './success';
 
 
 export default function AuthError401() {
 
 
     return (
-        <div>
+        <div style={contentWrapper}>
           
-             Du är inte inloggad!
-        
+             <p>Du är inte inloggad!</p>
+             
+             <Link to={"/"} >
+                <button className="blueBtnEffect" style={btnStyle}>Tillbaka till start</button> 
+            </Link>
         </div>
                 
     );

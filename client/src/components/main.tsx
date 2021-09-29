@@ -1,4 +1,3 @@
-import { useStripe } from '@stripe/react-stripe-js';
 import React, { CSSProperties } from 'react';
 import ProductList from './productList';
 

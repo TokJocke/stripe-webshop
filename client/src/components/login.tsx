@@ -1,8 +1,11 @@
-import React, { CSSProperties, /* Props, */ useEffect, useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+interface Props {
+    auth: () => Promise<void>
+}
 
-export default function Login() {
+export default function Login(props: Props) {
     const history = useHistory()
     const [pw, setPw] = useState(undefined)
     const [name, setName] = useState(undefined)
@@ -20,13 +23,12 @@ export default function Login() {
             credentials: 'include',
             body: JSON.stringify({name: name, pw: pw})
         })
-        console.log(response)
         if(response.status === 401) {
             history.push("/no-user/401")
         }
         else {
             history.push(`/${name}`)
-
+            props.auth()
         }
  
     }
@@ -84,11 +86,6 @@ const inputStyle: CSSProperties = {
     border: "none",
     marginBottom: "5px",
     padding: "5px"
-}
-
-const textStyle: CSSProperties = {
-    margin: 0,
-    fontSize: "1.1em"
 }
 
 const btnStyle: CSSProperties = {

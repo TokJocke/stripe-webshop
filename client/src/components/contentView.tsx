@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useParams } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import AuthError401 from './authError';
 import Cart from './cart';
 import Main from './main';

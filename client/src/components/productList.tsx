@@ -44,9 +44,9 @@ export default function ProductList() {
             
             { 
                 products?
-                products.map((product) => {
+                products.map((product, i) => {
                     return(
-                        <Product> 
+                        <Product key={i}> 
                             <h1>{product.name}</h1>
                             <p>{product.price}</p>
                             <p>{product.info}</p>
