@@ -29,6 +29,7 @@ export default function Success() {
     const stripe = useStripe()
     const [orderInfo, setOrderInfo] = useState<orderInterface>()
     const [verified, setVerified] = useState(false)
+    const [ifOrderExist, setIfOrderExist] = useState(false)
 
     let match = useRouteMatch<MatchParams>({
         path: "/:username/success/:id"
@@ -46,6 +47,12 @@ export default function Success() {
         })
         let data = await response.json()
         setVerified(true)
+        if(response.status === 404) {
+            setIfOrderExist(false)
+        }
+        else {
+            setIfOrderExist(true)
+        }
     }
 
     async function getOrder() {
@@ -57,6 +64,10 @@ export default function Success() {
         })
         let data = await response.json()
         setOrderInfo(data)
+    }
+
+    const renderOrder = () => {
+    
     }
 
    
@@ -76,7 +87,10 @@ export default function Success() {
 
     return (
         <div style={successStyle}>
-            <p>Din order har blivit godkänd, tack för ditt köp!</p>
+       {/*      {
+            ifOrderExist?
+        } */}
+       {/*      <p>Din order har blivit godkänd, tack för ditt köp!</p>
             { 
                 !verified?
                 <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
@@ -112,7 +126,7 @@ export default function Success() {
                             null
                     }
                 </div>
-            }
+            } */}
             
             <Link to={`/${userName}`} >
                 <button className="blueBtnEffect" style={btnStyle}>Tillbaka till start</button> 

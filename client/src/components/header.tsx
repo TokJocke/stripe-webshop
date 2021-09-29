@@ -20,7 +20,6 @@ export default function Header() {
             headers: {"content-type": "application/json"},
             credentials: 'include',
         })
-        console.log(response)
         if(response.status === 401) {
             setIsAuth(false)
         }
@@ -31,7 +30,7 @@ export default function Header() {
 
     useEffect(() => {
         auth()
-    })
+    }, [])
 
     return (
         <div style={headerStyle}>
@@ -42,7 +41,7 @@ export default function Header() {
                             <h1>Fläktar Gött, ej AB</h1>
                         </Link>
                        
-                        <Logout>
+                        <Logout auth={auth}>
                             <div style={btnWrap}>
                                 <Link to={`${match?.url}/kundvagn`}>
                                     <button className="blueBtnEffect" style={btnStyle}>
@@ -62,7 +61,7 @@ export default function Header() {
                         <Link style={titleStyle} to={"/"}>
                             <h1>Fläktar Gött, ej AB</h1>
                         </Link>
-                        <Login /> 
+                        <Login auth={auth}/> 
                     </React.Fragment>
             }
             

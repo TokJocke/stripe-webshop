@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 interface Props {
     children?: any
+    auth: () => Promise<void>
+    
 }
 
 export default function Logout(props: Props) {
@@ -15,8 +17,8 @@ export default function Logout(props: Props) {
             headers: {"content-type": "application/json"},
             credentials: 'include',
         })
-        console.log(response)
         history.replace("/")
+        props.auth()
     }
 
     return (

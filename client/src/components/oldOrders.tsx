@@ -1,7 +1,8 @@
-import { CssFontSource } from '@stripe/stripe-js';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import Order from './order';
 import { descriptionStyle, prodPropDiv, textStyle, totalAmountStyle } from './success';
+import { useHistory } from 'react-router-dom';
+
 
 
 interface productInterface {
@@ -24,7 +25,7 @@ interface orderInterface {
 export default function OldOrders() {
 
     const [orderInfo, setOrderInfo] = useState<orderInterface[]>()
-
+    const history = useHistory()
 
     async function getAllOrders() {
         const response = await fetch("http://localhost:3000/getAllOrders", {
@@ -33,8 +34,14 @@ export default function OldOrders() {
             credentials: 'include',
         })
         let data = await response.json()
-        setOrderInfo(data)
+        if(response.status === 401) {
+            history.push("/no-user/401")
+        }
+        else {
+            setOrderInfo(data)
+        }
     }
+    
 
     useEffect(() => {
         getAllOrders()
