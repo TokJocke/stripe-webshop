@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { useHistory } from 'react-router-dom';
 
 interface Props {
-    children?: any
+   /*  children?: any */
     auth: () => Promise<void>
     
 }
@@ -22,14 +22,11 @@ export default function Logout(props: Props) {
     }
 
     return (
-        <div style={loginStyle}>
-            {props.children}
-            <button className="redBtnEffect" style={btnStyle} onClick={() => logout()}>Logga ut</button>
-        </div>
+        <button className="redBtnEffect" style={btnStyle} onClick={() => logout()}>Logga ut</button>
     );
 }
 
-const loginStyle: CSSProperties = {
+/* const loginStyle: CSSProperties = {
     height: "100%",
     width: "15%",
     backgroundColor: "rgb(230, 230, 230)",
@@ -39,7 +36,7 @@ const loginStyle: CSSProperties = {
     borderTopLeftRadius: "15px",
     borderBottomLeftRadius: "15px",
     justifyContent: "space-between"
-}
+} */
 
 
 const btnStyle: CSSProperties = {
@@ -48,5 +45,8 @@ const btnStyle: CSSProperties = {
     color: "white",
     border: "none",
     borderRadius: "5px",
-    fontSize: "1.2em",
+    fontSize: "1.5em",
+    padding: "5px",
+    width: "100%",
+    fontWeight: "bold"
 }
