@@ -11,7 +11,7 @@ routes.post("/createUser", createUser)
 routes.post("/login", login)
 routes.delete("/logout", logout)
 /* PRODUCTS */
-routes.post("/addToCart", auth, addToCart)
+routes.post("/addToCart", addToCart)
 routes.get("/getProducts", getProducts)
 routes.get("/getCartProducts", auth, getCart)
 routes.post("/changeQuantity", auth, changeQuantity)

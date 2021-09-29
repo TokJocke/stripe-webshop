@@ -1,19 +1,35 @@
-import { relative } from 'path';
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 
 interface Props {
     children: any
     btnText: string
 }
 
-
 export default function NavMenu(props: Props) {
 
-    const [isOpen, setIsOpen] = useState(true)
-   
+    const [isOpen, setIsOpen] = useState(false)
+    const menuRef = useRef<HTMLDivElement>(null)
+    
+    const handleClick = (event: any) => {
+        if(menuRef && !menuRef.current?.contains(event.target as Node))  { 
+            setIsOpen(false)
+            console.log("utanför, false")
+        } 
+    }   
+
+    useEffect(() => {
+        document.body.addEventListener("click", (event) => handleClick(event))
+    }, [])
+
+    useEffect(() => { /* Just for logging click on body */
+        console.log("isOpen state: ", isOpen)
+    }, [isOpen])
+
     return (
-        <div className="navMenu" style={navMenu}>
-            <button className="blueBtnEffect" style={menuBtn} onClick={() => setIsOpen(!isOpen)}>{props.btnText}</button>
+        <div ref={menuRef}  className="navMenu" style={navMenu}>
+            <button className="blueBtnEffect" style={menuBtn} onClick={() => setIsOpen(!isOpen)}>
+                {props.btnText}
+            </button>
             {
                 isOpen?
                     <div className="navDropDown" style={navDropDown}>

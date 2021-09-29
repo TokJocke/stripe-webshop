@@ -41,7 +41,7 @@ export const checkOut = async (req, res) => {
             line_items: lineItems,
             mode: "payment",
             success_url: `http://localhost:3001/${foundUser.name}/success/{CHECKOUT_SESSION_ID}`, /* Change to sucess/cancel site */
-            cancel_url: `http://localhost:3001/${foundUser.name}`
+            cancel_url: `http://localhost:3001/${foundUser.name}/payment-cancelled`
         })     
         res.status(200).json({ id: session.id })
     }

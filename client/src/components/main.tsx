@@ -9,8 +9,6 @@ export default function Main() {
     return (
         <div className={"main"} style={mainStyle}>
             <ProductList />
-            
-
         </div>
                 
     );

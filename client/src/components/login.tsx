@@ -5,10 +5,12 @@ interface Props {
     auth: () => Promise<void>
 }
 
+
 export default function Login(props: Props) {
     const history = useHistory()
     const [pw, setPw] = useState(undefined)
     const [name, setName] = useState(undefined)
+    const [errMsg, setErrMsg] = useState("")
 
     const updatePw = (event: any) => {
         event? setPw(event.target.value) : setPw(undefined)     
@@ -17,6 +19,15 @@ export default function Login(props: Props) {
         event? setName(event.target.value) : setName(undefined)     
     }
     const login = async () => {
+
+        if(!name) {
+            setErrMsg("Du behöver fylla i ett användarnamn")
+            return 
+        } else if(!pw) {
+            setErrMsg("Du behöver fylla i ett lösenord")
+            return 
+        }
+
         const response = await fetch("http://localhost:3000/login", {
             method: "POST",
             headers: {"content-type": "application/json"},
@@ -24,16 +35,26 @@ export default function Login(props: Props) {
             body: JSON.stringify({name: name, pw: pw})
         })
         if(response.status === 401) {
-            history.push("/no-user/401")
+            setErrMsg("Fel användarnamn eller lösenord")
+
         }
         else {
             history.push(`/${name}`)
             props.auth()
+            setErrMsg("")
         }
  
     }
 
     const createUser = async () => {
+
+        if(!name) {
+            setErrMsg("Du behöver fylla i ett användarnamn")
+            return 
+        } else if(!pw) {
+            setErrMsg("Du behöver fylla i ett lösenord")
+            return 
+        }
 
         const response = await fetch("http://localhost:3000/createUser", {
             method: "POST",
@@ -41,7 +62,13 @@ export default function Login(props: Props) {
             credentials: 'include',
             body: JSON.stringify({name: name, pw: pw})
         })
-        console.log(response) 
+        if(response.status === 409) {
+            setErrMsg("Användarnamn upptaget")
+        }
+        else {
+            login()
+        }
+ 
     }
 
     return (
@@ -58,10 +85,16 @@ export default function Login(props: Props) {
                     style={inputStyle}
                     type={'password'}
                     />
+                { 
+                    errMsg.length > 1 ?
+                        <p style={errorMsg}>{errMsg}</p>
+                        :
+                        null
+                }
             </div>
             <div style={btnWrapp}>
                 <button style={btnStyle} onClick={() => login()}>Logga in</button>
-                <button style={btnStyle}onClick={() => createUser()}>Skapa användare</button>
+                <button style={btnStyle} onClick={() => createUser()}>Skapa användare</button>
             </div>
         </div>
     );
@@ -101,4 +134,8 @@ const btnStyle: CSSProperties = {
 const btnWrapp: CSSProperties = {
     display: "flex",
     flexDirection: "column",
+}
+
+const errorMsg: CSSProperties = {
+    color: "red"
 }
