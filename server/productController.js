@@ -6,9 +6,9 @@ export const addToCart = async (req, res) => {
     let rawUsers = fs.readFileSync("users.json")
     let users = JSON.parse(rawUsers)
     const user = users.find(user => user.name === req.session.username)   
-    if(!user) {
+/*     if(!user) {
         return res.status(404).send("Logga in för att lägga till i kundvagn")
-    }
+    } */
     let foundProduct = user.cart.find(product => product.id === req.body.id)
     if(!foundProduct) {
         const product = {
