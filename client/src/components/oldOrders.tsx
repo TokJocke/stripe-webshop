@@ -55,13 +55,13 @@ export default function OldOrders() {
        <div className="wrapper" style={wrapper}>
             {
                 orderInfo? 
-                    orderInfo.map((order) => {
+                    orderInfo.map((order, i) => {
                         return (
-                            <Order date={order.orderDate}>         
+                            <Order key={i} date={order.orderDate}>         
                                 {
-                                    order.products.map((product) => {
+                                    order.products.map((product, i) => {
                                         return (
-                                                <div style={productRow}>
+                                                <div key={i} style={productRow}>
                                                     <div style={prodPropDiv}>
                                                         <p style={textStyle}>{product.quantity + "x" + " " + product.name }</p> 
                                                     </div>

@@ -45,7 +45,7 @@ export default function Login(props: Props) {
     }
 
     return (
-        <div style={loginStyle}>
+        <div className="loginDiv" style={loginStyle}>
             <div>
                 <input 
                     onChange={(event) => updateName(event)} 
@@ -69,13 +69,12 @@ export default function Login(props: Props) {
 
 const loginStyle: CSSProperties = {
     height: "100%",
-    width: "15%",
+    width: "100%",
     backgroundColor: "rgb(230, 230, 230)",
     display: "flex",
     flexDirection: "column",
     padding: "10px",
     justifyContent: "space-evenly",
-    borderTopLeftRadius: "15px",
     borderBottomLeftRadius: "15px",
 }
 
