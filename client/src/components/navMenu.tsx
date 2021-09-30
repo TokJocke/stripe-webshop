@@ -43,26 +43,23 @@ export default function NavMenu(props: Props) {
 }
 
 const navMenu: CSSProperties = {
-    width: "15%",
+  /*   width: "15vw", */
     display: "flex",
     justifyContent: "flex-end"
 }
 
 const navDropDown: CSSProperties = {
-    /*     position: "absolute",
-    right: "10%" */
-   // height: "80vh",
-    width: "15%",
+    width: "12rem",
     top: "20%",
     position: "absolute",
     backgroundColor: "rgb(33, 33, 33)",
     padding: "10px",
     borderBottomLeftRadius: "15px",
-    zIndex: 25
+    zIndex: 25,
 }
 
 const menuBtn: CSSProperties = {
-    width: "100%",
+    width: "12rem",
     alignSelf: "flex-end",
     padding: "5px",
     backgroundColor: "rgb(85, 150, 245)",

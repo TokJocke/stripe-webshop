@@ -1,6 +1,7 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Product from './product';
+import { imgStyle } from './productList';
 
 
 interface Iproduct {
@@ -8,7 +9,8 @@ interface Iproduct {
     price: string,
     info: string,
     quantity: string,
-    id: string
+    id: string,
+    img: string
 }
 
 interface Props {
@@ -73,6 +75,7 @@ export default function InCartList(props: Props) {
                     return(
                         <Product key={i}> 
                             <h1>{product.name}</h1>
+                            <img style={imgStyle} src={require(`../assets/${product.img}`).default} alt="product image" />
                             <p>{product.price}</p>
                             <p>{product.info}</p>
                             <div style={quantityDiv}>
@@ -100,7 +103,9 @@ export default function InCartList(props: Props) {
 
 const productListStyle: CSSProperties = {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    width: "100%",
+    flexWrap: "wrap"
 }
 
 const quantityDiv: CSSProperties = {

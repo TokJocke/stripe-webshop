@@ -82,9 +82,9 @@ export default function Success() {
                         <div style={orderWrapper}>
                             { 
                                 orderInfo? 
-                                orderInfo.products.map((product) => {
+                                orderInfo.products.map((product, i) => {
                                     return (
-                                        <div style={productStyle}>
+                                        <div key={i} style={productStyle}>
                                                 
                                                 <div style={prodPropDiv}>
                                                     <p style={textStyle}>{product.quantity + "x" + " " + product.name }</p> 
@@ -209,7 +209,7 @@ export const totalAmountStyle: CSSProperties = {
 const orderWrapper: CSSProperties = {
     padding: "20px",
     backgroundColor: "rgb(30, 30, 30)",
-    width: "50%",
+    minWidth: "50%",
     borderRadius: "15px",
     
 }

@@ -44,7 +44,7 @@ const dropDownStyle: CSSProperties = {
     backgroundColor: "rgb(30, 30, 30)",
     alignItems: "center",
     borderRadius: "15px",
-    width: "50%",
+    minWidth: "50%",
     color: "rgb(230, 230, 230)",
     padding: "20px"
 }
