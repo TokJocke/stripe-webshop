@@ -45,7 +45,8 @@ export const getCart = async (req, res) => {
             price: foundProduct.price,
             info: foundProduct.info,
             quantity: product.quantity,
-            id: foundProduct.id
+            id: foundProduct.id,
+            img: foundProduct.img
                 
         }
         return prod     

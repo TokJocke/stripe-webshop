@@ -1,12 +1,12 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import Product from './product';
 
-
 interface Iproduct {
     name: string,
     price: string,
     info: string,
-    id: string
+    id: string,
+    img: string
 }
 
 export default function ProductList() {
@@ -41,7 +41,7 @@ export default function ProductList() {
     useEffect(() => {
         getProducts()
     },[])
-
+    
 
     return (
         <div style={productListStyle}>
@@ -52,6 +52,7 @@ export default function ProductList() {
                     return(
                         <Product key={i}> 
                             <h1>{product.name}</h1>
+                            <img style={imgStyle} src={require(`../assets/${product.img}`).default} alt="product image" />
                             <p>{product.price}</p>
                             <p>{product.info}</p>
                             <button className="blueBtnEffect" style={btnStyle} onClick={() => addToCart(product.id)}>
@@ -83,4 +84,11 @@ const btnStyle: CSSProperties = {
     padding: "5px",
     cursor: "pointer",
     
+}
+
+
+export const imgStyle: CSSProperties = {
+    objectFit: "contain",
+    width: "100%",
+    //height: "20%"
 }

@@ -3,18 +3,21 @@
         "id": "1",
         "name": "Bordsfläkt",
         "price": "200kr",
-        "info": "Blåser bra som fan, håll i hatten!"
+        "info": "Blåser bra som fan, håll i hatten!",
+        "img": "bordsflakt.jpg"
     },
     {
         "id": "2",
         "name": "Golvfläkt",
         "price": "600kr",
-        "info": "Står på pinne och skapar storm!"
+        "info": "Står på pinne och skapar storm!", 
+        "img": "flaktpapinne.jpg"
     },
     {
         "id": "3",
         "name": "Takfläkt",
         "price": "1000kr",
-        "info": "Toppnotch!"
+        "info": "Toppnotch!",
+        "img": "takflakt.jpg"
     }
 ]
