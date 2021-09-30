@@ -48,3 +48,8 @@ a:link, a:visited {
 .greenBtnEffect:active {
   zoom: 0.95 !important;
 }
+
+.noScrollBar::-webkit-scrollbar {
+  display: none;
+}
+  

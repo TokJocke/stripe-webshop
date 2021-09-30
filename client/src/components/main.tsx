@@ -7,7 +7,7 @@ export default function Main() {
 
 
     return (
-        <div className={"main"} style={mainStyle}>
+        <div className={"noScrollBar"} style={mainStyle}>
             <ProductList />
         </div>
                 
@@ -19,6 +19,8 @@ const mainStyle: CSSProperties = {
     backgroundColor: "rgb(230, 230, 230)",
     display: "flex",
     flexDirection: "column",
-    flexGrow: 1
+    flexGrow: 1,
+    overflow: "auto",
+
 }
 

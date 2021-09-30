@@ -125,6 +125,7 @@ export const getAllOrders = async (req, res) => {
     
     const filterdOrders = orders.filter(order => order.customer === foundUser.customerId)
     console.log("username = ", foundUser)
-    console.log(filterdOrders)
-    res.status(200).json(filterdOrders)
+    console.log(filterdOrders)  
+    /* .reverse() to get latest order first in client */
+    res.status(200).json(filterdOrders.reverse())
 }

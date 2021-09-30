@@ -93,8 +93,8 @@ export default function Login(props: Props) {
                 }
             </div>
             <div style={btnWrapp}>
-                <button style={btnStyle} onClick={() => login()}>Logga in</button>
-                <button style={btnStyle} onClick={() => createUser()}>Skapa användare</button>
+                <button className={"blueBtnEffect"} style={btnStyle} onClick={() => login()}>Logga in</button>
+                <button className={"blueBtnEffect"} style={btnStyle} onClick={() => createUser()}>Skapa användare</button>
             </div>
         </div>
     );

@@ -52,7 +52,7 @@ export default function OldOrders() {
     }, [orderInfo])
 
     return (
-       <div className="wrapper" style={wrapper}>
+       <div className="noScrollBar" style={wrapper}>
             {
                 orderInfo? 
                     orderInfo.map((order, i) => {
@@ -100,9 +100,10 @@ const wrapper: CSSProperties = {
     width: "100%",
     backgroundColor: "rgb(230, 230, 230)",
     display: "flex",
-    flexDirection: "column-reverse",
+    flexDirection: "column",
     flexGrow: 1,
-    justifyContent: "flex-end"
+    height: "100%",
+    overflow: "auto",
 }
 
 const productRow: CSSProperties = {
@@ -113,6 +114,6 @@ const productRow: CSSProperties = {
     justifyContent: "space-between",
     marginBottom: "10px",
     borderRadius: "5px",
-    padding: "5px"
+    padding: "5px",
 }
 

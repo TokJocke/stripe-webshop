@@ -29,7 +29,7 @@ export default function Cart() {
     
 
     return (
-        <div style={cartStyle}>
+        <div className={"noScrollBar"} style={cartStyle}>
             
             <InCartList ifCart={setIfCart}/>
             {
@@ -53,7 +53,9 @@ const cartStyle: CSSProperties = {
     flexDirection: "column",
     flexGrow: 1,
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    overflow: "auto",
+
 }
 
 const checkoutBtnStyle: CSSProperties = {

@@ -35,6 +35,7 @@ const orderWrapper: CSSProperties = {
     alignItems: "center",
     marginTop: "15px",
     cursor: "pointer",
+    
 }
 
 const dropDownStyle: CSSProperties = {
@@ -46,5 +47,4 @@ const dropDownStyle: CSSProperties = {
     width: "50%",
     color: "rgb(230, 230, 230)",
     padding: "20px"
-
 }
