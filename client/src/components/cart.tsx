@@ -51,7 +51,7 @@ const cartStyle: CSSProperties = {
     backgroundColor: "rgb(230, 230, 230)",
     display: "flex",
     flexDirection: "column",
-    flexGrow: 1,
+    height: "70vh",
     justifyContent: "space-between",
     alignItems: "center",
     overflow: "auto",

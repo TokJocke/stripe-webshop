@@ -78,14 +78,12 @@ export default function Header() {
 }
 
 const headerStyle: CSSProperties = {
-    height: "20%",
+    height: "20vh",
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
     backgroundColor: "rgb(33, 33, 33)",
     color: "rgb(230, 230, 230)",
-/*     paddingTop: "10px",
-    paddingBottom: "10px" */
 }
 
 const btnStyle: CSSProperties = {

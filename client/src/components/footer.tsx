@@ -18,7 +18,7 @@ export default function Footer() {
 }
 
 const footWrapp: CSSProperties = {
-    height: "10%",
+    height: "10vh",
     width: "100%",
     backgroundColor: "rgb(230, 230, 230)",
     display: "flex",

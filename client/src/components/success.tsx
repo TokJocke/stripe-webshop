@@ -168,7 +168,7 @@ export const contentWrapper: CSSProperties = {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    flexGrow: 1,
+    height: "70vh",
     backgroundColor: "rgb(230, 230, 230)",
     justifyContent: "space-between"
 }
