@@ -57,7 +57,8 @@ const navDropDown: CSSProperties = {
     position: "absolute",
     backgroundColor: "rgb(33, 33, 33)",
     padding: "10px",
-    borderBottomLeftRadius: "15px"
+    borderBottomLeftRadius: "15px",
+    zIndex: 25
 }
 
 const menuBtn: CSSProperties = {
