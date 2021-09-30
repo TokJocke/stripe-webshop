@@ -54,7 +54,7 @@ export default function OldOrders() {
     return (
        <div className="noScrollBar" style={wrapper}>
             {
-                orderInfo? 
+                orderInfo && orderInfo.length?
                     orderInfo.map((order, i) => {
                         return (
                             <Order key={i} date={order.orderDate}>         
@@ -88,7 +88,7 @@ export default function OldOrders() {
                         )
                     })
                 :
-                null
+                <p style={emptyOrder}>Finns inga gamla ordrar</p>
            }
        </div>
           
@@ -116,3 +116,6 @@ const productRow: CSSProperties = {
     padding: "5px",
 }
 
+const emptyOrder: CSSProperties = {
+    textAlign: "center"
+}
